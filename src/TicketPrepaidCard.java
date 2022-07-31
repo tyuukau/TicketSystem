@@ -1,5 +1,4 @@
-public class TicketPrepaidCard extends Ticket
-{
+public class TicketPrepaidCard extends Ticket {
     private final double DEPOSIT = 16;
     private double balance = 5;
 
@@ -7,9 +6,7 @@ public class TicketPrepaidCard extends Ticket
         return "Prepaid Card. Balance: " + balance + ". Cost: " + this.cost;
     }
 
-
-    public TicketPrepaidCard(double balance)
-    {
+    public TicketPrepaidCard(double balance) {
         this.balance = balance;
         this.cost = this.balance + this.DEPOSIT;
     }
