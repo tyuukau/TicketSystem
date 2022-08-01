@@ -10,7 +10,7 @@ public class App {
     private static Station stationC = new Station("C", 5.1);
     private static Station stationD = new Station("D", 7.9);
 
-    private static StationSystem system = new StationSystem(stationA, stationC, stationB, stationD);
+    private static StationSystem railSystem = new StationSystem(stationA, stationC, stationB, stationD);
 
     public static void main(String[] args) throws Exception {
         showMenu();
@@ -65,14 +65,14 @@ public class App {
     }
 
     public static void oneWayTicketSpecifier() {
-        system.print();
+        railSystem.print();
         System.out.println("One-way Ticket Menu");
         System.out.println("Starting Station Name: ");
         String startingStationName = scanner.nextLine();
-        Station startingStation = system.searchStation(startingStationName);
+        Station startingStation = railSystem.searchStation(startingStationName);
         System.out.println("Ending Station Name: ");
         String endingStationName = scanner.nextLine();
-        Station endingStation = system.searchStation(endingStationName);
+        Station endingStation = railSystem.searchStation(endingStationName);
 
         TicketOneWay oneWayTicketToBuy = new TicketOneWay(startingStation, endingStation);
         System.out.println(oneWayTicketToBuy);
@@ -85,11 +85,82 @@ public class App {
     }
 
     public static void twentyFourHourTicketMenu() {
+        twentyFourHourTicketSpecifier();
+        cart.print();
 
+        while (true) {
+            System.out.println("Confirm and place the order = 0 | Buy other tickets = 1");
+            int choice = getChoice(1);
+            if (choice == 1) {
+                twentyFourHourTicketSpecifier();
+                cart.print();
+            } else {
+                confirmScreen();
+                break;
+            }
+        }
+    }
+
+    public static void twentyFourHourTicketSpecifier() {
+        TicketTwentyFourHour twentyFourHourTicketToBuy = new TicketTwentyFourHour();
+        System.out.println(twentyFourHourTicketToBuy);
+        System.out.println("How many tickets would you like to buy?");
+        Integer numberToBuy = scanner.nextInt();
+
+        for (int i = 0; i < numberToBuy; i++) {
+            cart.addTicket(twentyFourHourTicketToBuy);
+        }
     }
 
     public static void prepaidCardMenu() {
+        prepaidCardSpecifier();
+        cart.print();
 
+        while (true) {
+            System.out.println("Confirm and place the order = 0 | Buy other tickets = 1");
+            int choice = getChoice(1);
+            if (choice == 1) {
+                prepaidCardSpecifier();
+                cart.print();
+            } else {
+                confirmScreen();
+                break;
+            }
+        }
+    }
+
+    public static void prepaidCardSpecifier() {
+        TicketPrepaidCard prepaidCardToBuy = new TicketPrepaidCard();
+        System.out.println(prepaidCardToBuy.toString());
+
+        while (true) {
+            System.out.println("Do you want to update the balance, Yes = 1 | No = 0:");
+            int choice = getChoice(1);
+            if (choice == 1) {
+                System.out.println("Input new balance: (minimum 2.5):");
+                String input = scanner.nextLine();
+                Double balance = Double.parseDouble(input);
+                while (true) {
+                    if (balance >= 2.5) {
+                        prepaidCardToBuy = new TicketPrepaidCard(balance);
+                        break;
+                    } else {
+                        System.out.println("Minimum is 2.5! Reinput new balance.");
+                        input = scanner.nextLine();
+                        balance = Double.parseDouble(input);
+                    }
+                }
+            } else {
+                break;
+            }
+        }
+        System.out.println(prepaidCardToBuy.toString());
+        System.out.println("How many tickets would you like to buy?");
+        Integer numberToBuy = scanner.nextInt();
+
+        for (int i = 0; i < numberToBuy; i++) {
+            cart.addTicket(prepaidCardToBuy);
+        }
     }
 
     public static void confirmScreen() {
