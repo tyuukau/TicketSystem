@@ -9,14 +9,13 @@ public class App {
     private static Station stationB = new Station("B", 2.5);
     private static Station stationC = new Station("C", 5.1);
     private static Station stationD = new Station("D", 7.9);
-
     private static StationSystem railSystem = new StationSystem(stationA, stationC, stationB, stationD);
 
     public static void main(String[] args) throws Exception {
         showMenu();
     }
 
-    public static void showMenu() {
+    private static void showMenu() {
         System.out.println("Ticket system:\n"
                 + "--------------------------------\n"
                 + "1. One-way ticket\n" // oneWayTicketMenu()
@@ -47,7 +46,7 @@ public class App {
         }
     }
 
-    public static void oneWayTicketMenu() {
+    private static void oneWayTicketMenu() {
         oneWayTicketSpecifier();
         cart.print();
 
@@ -64,14 +63,24 @@ public class App {
         }
     }
 
-    public static void oneWayTicketSpecifier() {
+    private static void oneWayTicketSpecifier() {
         railSystem.print();
         System.out.println("One-way Ticket Menu");
         System.out.println("Starting Station Name: ");
         String startingStationName = scanner.nextLine();
         Station startingStation = railSystem.searchStation(startingStationName);
-        System.out.println("Ending Station Name: ");
-        String endingStationName = scanner.nextLine();
+        String endingStationName = "";
+        while (true) {
+            System.out.println("The ending station must not be the same as the starting station. Ending Station Name:");
+            endingStationName = scanner.nextLine();
+            if (endingStationName.equalsIgnoreCase(startingStationName)) {
+                System.out.println("The ending station must not be the same as the starting station. Ending Station Name:");
+                endingStationName = scanner.nextLine();
+            } else {
+                break;
+            }
+
+        }
         Station endingStation = railSystem.searchStation(endingStationName);
 
         TicketOneWay oneWayTicketToBuy = new TicketOneWay(startingStation, endingStation);
@@ -84,7 +93,7 @@ public class App {
         }
     }
 
-    public static void twentyFourHourTicketMenu() {
+    private static void twentyFourHourTicketMenu() {
         twentyFourHourTicketSpecifier();
         cart.print();
 
@@ -101,7 +110,7 @@ public class App {
         }
     }
 
-    public static void twentyFourHourTicketSpecifier() {
+    private static void twentyFourHourTicketSpecifier() {
         TicketTwentyFourHour twentyFourHourTicketToBuy = new TicketTwentyFourHour();
         System.out.println(twentyFourHourTicketToBuy);
         System.out.println("How many tickets would you like to buy?");
@@ -112,7 +121,7 @@ public class App {
         }
     }
 
-    public static void prepaidCardMenu() {
+    private static void prepaidCardMenu() {
         prepaidCardSpecifier();
         cart.print();
 
@@ -129,9 +138,9 @@ public class App {
         }
     }
 
-    public static void prepaidCardSpecifier() {
+    private static void prepaidCardSpecifier() {
         TicketPrepaidCard prepaidCardToBuy = new TicketPrepaidCard();
-        System.out.println(prepaidCardToBuy.toString());
+        System.out.println(prepaidCardToBuy);
 
         while (true) {
             System.out.println("Do you want to update the balance, Yes = 1 | No = 0:");
@@ -143,6 +152,7 @@ public class App {
                 while (true) {
                     if (balance >= 2.5) {
                         prepaidCardToBuy = new TicketPrepaidCard(balance);
+                        System.out.println(prepaidCardToBuy);
                         break;
                     } else {
                         System.out.println("Minimum is 2.5! Reinput new balance.");
@@ -154,7 +164,7 @@ public class App {
                 break;
             }
         }
-        System.out.println(prepaidCardToBuy.toString());
+        System.out.println(prepaidCardToBuy);
         System.out.println("How many tickets would you like to buy?");
         Integer numberToBuy = scanner.nextInt();
 
@@ -163,7 +173,7 @@ public class App {
         }
     }
 
-    public static void confirmScreen() {
+    private static void confirmScreen() {
         System.out.println("Done!");
         cart.print();
         System.out.println("The order is placed.");

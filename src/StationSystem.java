@@ -23,13 +23,14 @@ public class StationSystem {
     }
 
     public void print() {
-        System.out.println("********SYSTEM************************************");
         System.out.println("Station System:");
-        for (int i = 0; i < this.listOfStations.size(); i++) {
-            System.out.println(Integer.toString(i + 1) + ".\t" + this.listOfStations.get(i).toString());
+        for (Station station : listOfStations) {
+            System.out.println(station.toString());
         }
-        System.out.println("**************************************************");
         System.out.println("\n");
+    }
+
+    public StationSystem() {
     }
 
     public StationSystem(Station... list) {

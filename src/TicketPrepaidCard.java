@@ -1,18 +1,20 @@
 public class TicketPrepaidCard extends Ticket {
-    private final double DEPOSIT = 16;
+    private static final double DEPOSIT = 16;
     private double balance = 5;
 
     public String toString() {
-        return "Prepaid Card. Balance: " + balance + ". Cost: " + this.cost;
+        return this.type + ". Balance: " + balance + ". Cost: " + this.cost;
     }
 
     public TicketPrepaidCard() {
-        this.cost = this.balance + this.DEPOSIT;
+        this.cost = this.balance + DEPOSIT;
+        this.type = "Prepaid Card";
     }
 
     public TicketPrepaidCard(double balance) {
         this.balance = balance;
-        this.cost = this.balance + this.DEPOSIT;
+        this.cost = this.balance + DEPOSIT;
+        this.type = "Prepaid Card";
     }
 
 }

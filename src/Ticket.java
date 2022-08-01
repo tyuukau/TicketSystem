@@ -1,5 +1,6 @@
 public abstract class Ticket {
     protected double cost;
+    protected String type;
 
     public double getCost() {
         return this.cost;

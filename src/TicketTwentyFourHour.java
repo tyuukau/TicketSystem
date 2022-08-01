@@ -1,10 +1,14 @@
 public class TicketTwentyFourHour extends Ticket {
+
+    private static final double DEFAULT_COST = 8.5;
+
     public String toString() {
-        return "24h Ticket. Cost: " + this.cost;
+        return this.type + ". Cost: " + this.cost;
     }
 
     public TicketTwentyFourHour() {
-        this.cost = 8.5;
+        this.cost = DEFAULT_COST;
+        this.type = "24h Ticket";
     }
 
 }
